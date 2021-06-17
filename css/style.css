@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+:root {
+    --video-bg: rgb(255, 255, 255);
+    --slider-bg: rgb(0, 255, 255);
+    --handle: rgb(0, 199, 199);
+    --unviewed-bg: rgb(255, 255, 255);
+    --bubble-bg: rgb(245, 245, 245);
+    --bubble-border-bg: rgb(0, 255, 255);
+}
+
+.video-container>* {
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+.video-container {
+    margin: 1em auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--video-bg);
+    box-shadow: 2px 2px 10px 3px rgba(0, 0, 0, 0.144);
+}
+
+.video-container video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+.video-container .controls-bottom {
+    width: 100%;
+    height: 5em;
+    background: linear-gradient(rgb(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.219));
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    padding: 0 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.video-container .controls-bottom .control {
+    margin-bottom: 1em;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.video-container .controls-bottom .control #slider {
+    flex: 1;
+    margin: 0 1.5em;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.noUi-handle:after,
+.noUi-handle:before {
+    display: none;
+}
+
+
+.noUi-horizontal {
+    cursor: pointer;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 17px;
+    height: 17px !important;
+    background-color: var(--handle);
+    box-shadow: none;
+    border: none;
+    border-radius: 50%;
+    left: -15px;
+    top: -2.5px;
+    transition: width 200ms, height 200ms;
+}
+
+.noUi-horizontal .noUi-origin {
+    right: -2px;
+    top: -3.5px;
+}
+
+
+#slider {
+    height: 12px;
+    border-radius: 12px;
+}
+
+#slider * {
+    height: 12px;
+}
+
+.noUi-base {
+    top: -1px;
+    left: -1px;
+    right: -2px;
+}
+
+.noUi-connects {
+    position: relative;
+    overflow: hidden;
+    z-index: 100;
+    background-color: var(--unviewed-bg);
+    z-index: -10;
+}
+
+.noUi-connect {
+    background-color: var(--slider-bg);
+    z-index: -1;
+    border-radius: 120px;
+}
+
+
+html:not([dir="rtl"]) .noUi-horizontal .noUi-origin {
+    top: 0;
+    right: -5.5px;
+}
+
+html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
+    right: 0;
+    left: auto;
+}
+
+
+
+
+.controls .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.controls .buttons > div {
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+
+.controls .buttons svg {
+    width: 22px;
+    height: 22px;
+}
+
+
+
+
+
+.video-container .playback-animation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.144);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+}
+
+.video-container .playback-animation svg {
+    height: 20px;
+    width: 20px;
+}
+
+.controls-bottom .buttons >div {
+    position: relative;
+}
+
+.controls-bottom .buttons div::before {
+    display: none;
+    position: absolute;
+    top: -130%;
+    left: -50%;
+    content: attr(data-title);
+    padding: 0.25em 0.5em;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    word-break: keep-all;
+    white-space: pre;
+    font-size: 0.8em;
+    transform: translateX(150%);
+}
+.controls-bottom .buttons:first-child div::before {
+    transform: translateX(25%);
+}
+
+.controls-bottom .buttons >div:hover::before {
+    display: inline-block;
+}
+.controls-bottom .btns2 div {
+    display: flex;
+    align-items: center;
+}
+.controls-bottom .btns2 div svg {
+    margin-right: 10px;
+}
+.controls-bottom .btns2 div span {
+    color: black;
+    font-size: 16px;
+}
+
+
+.video-container #speech-bubble {
+    width: 320px;
+    position: absolute;
+    color: black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+    border: 5px solid var(--bubble-border-bg);
+    border-radius: 50%;
+    padding: 3em 2.5em;
+    text-align: center;
+    background-color: var(--bubble-bg);
+}
+
+.video-container #speech-bubble::before, .video-container #speech-bubble::after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    transform: rotateZ(30deg);
+}
+
+.video-container #speech-bubble::before {
+    left: 8px;
+    bottom: -32px;
+    border: 30px solid;
+    border-color: var(--bubble-border-bg) transparent transparent var(--bubble-border-bg);
+}
+
+.video-container #speech-bubble::after {
+    left: 19px;
+    bottom: -19px;
+    border: 25px solid;
+    border-color: var(--bubble-bg) transparent transparent var(--bubble-bg);
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .video-container .controls-bottom {
+        padding: 0 0.1em;
+    }
+    .video-container .controls-bottom .control {
+        margin-bottom: 0.5em;
+    }
+    .controls .buttons svg {
+        width: 17px;
+        height: 17px;
+    }
+    #slider {
+        height: 5px;
+        border-radius: 5px;
+    }
+    .noUi-horizontal .noUi-handle {
+        width: 7.5px;
+        height: 7.5px !important;
+    }
+    #slider * {
+        height: 5px;
+    }
+    .noUi-horizontal .noUi-handle {
+        top: -2px;
+    }
+    .video-container .controls-bottom .control #slider {
+        margin: 0 0.1em;
+    }
+    .controls-bottom .btns2 div svg {
+        margin-right: 3px;
+    }
+    .controls-bottom .btns2 div span {
+        font-size: 10px;
+    }
+    .controls-bottom .btns2 > div {
+        padding: 0.3em;
+    }
+    .controls .buttons svg {
+        width: 10px;
+        height: 10px;
+    }
+    .video-container .controls-bottom .control {
+        margin-bottom: 0;
+    }
+
+
+    .controls-bottom .buttons >div:hover::before {
+        display: none;
+    }
+    .video-container #speech-bubble {
+        width: 200px;
+        font-size: 0.6em;
+        border-width: 3px;
+        padding: 2em 1.5em;
+        transform: translate(-50%, -65%);
+    }
+    .video-container #speech-bubble::before {
+        left: 5px;
+        bottom: -14px;
+        border: 15px solid;
+        border-color: var(--bubble-border-bg) transparent transparent var(--bubble-border-bg);
+    }
+    
+    .video-container #speech-bubble::after {
+        left: 10px;
+        bottom: -10px;
+        border: 15px solid;
+        border-color: var(--bubble-bg) transparent transparent var(--bubble-bg);
+    }
+    .video-container .playback-animation {
+        height: 30px;
+        width: 30px;
+    }
+    .video-container .playback-animation svg {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media screen and (min-width: 600px) and (max-width: 992px) {
+    .video-container .controls-bottom {
+        padding: 0 0.5em;
+    }
+    .video-container .controls-bottom .control {
+        margin-bottom: 0.5em;
+    }
+    .controls .buttons svg {
+        width: 17px;
+        height: 17px;
+    }
+    .video-container .controls-bottom .control #slider {
+        margin: 0 0.4em;
+    }
+    .controls-bottom .btns2 div svg {
+        margin-right: 1px;
+    }
+    .controls-bottom .btns2 div span {
+        font-size: 16px;
+    }
+    .controls-bottom .btns2 > div {
+        padding: 0.3em;
+    }
+    .video-container #speech-bubble {
+        width: 250px;
+        font-size: 0.8em;
+        border-width: 3px;
+        padding: 2em 1.5em;
+        transform: translate(-50%, -65%);
+    }
+    .video-container #speech-bubble::before {
+        left: 5px;
+        bottom: -18px;
+        border: 20px solid;
+        border-color: var(--bubble-border-bg) transparent transparent var(--bubble-border-bg);
+    }
+    
+    .video-container #speech-bubble::after {
+        left: 11px;
+        bottom: -13px;
+        border: 20px solid;
+        border-color: var(--bubble-bg) transparent transparent var(--bubble-bg);
+    }
+}
